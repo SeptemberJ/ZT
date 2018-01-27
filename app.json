@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/OrderList/index",
+    "pages/Login/index",
+    "pages/Sign/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "white",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "泽天",
+    "navigationBarBackgroundColor": "#7FC9B8",
+    "backgroundColor": "#7FC9B8",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#bfbfbf",
+    "selectedColor": "#fff",
+    "borderStyle": "white",
+    "backgroundColor": "#7FC9B8",
+    "list": [
+      {
+        "pagePath": "pages/Sign2/index",
+        "iconPath": "images/icon/user.png",
+        "selectedIconPath": "images/icon/user.png",
+        "text": "主页"
+      },
+
+      {
+        "pagePath": "pages/Sign2/index",
+        "iconPath": "images/icon/user.png",
+        "selectedIconPath": "images/icon/user.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "debug": true
+}

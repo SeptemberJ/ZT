@@ -1,0 +1,112 @@
+page{
+   background-color: #F4F4F4; 
+
+
+
+}
+.orderTab_wrap{
+  width: 100%;
+  height: 42px;
+  background-color: #fff;
+}
+.orderTab{
+  width: 98%;
+  margin: 0rpx auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /*border-bottom:1px solid #ccc;*/
+}
+.tabItem{ 
+  flex-grow: 1;
+  text-align: center;
+  color: #666;
+  padding: 0rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  line-height: 72rpx;
+}
+.active{ 
+  /*background: #609ddc;*/
+  color: #7FC9B8;
+  border-bottom:2px solid #7FC9B8;
+}
+
+.orderList_wrap{
+  width: 100%;
+  margin: 0rpx auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.orderItem{
+  width: 700rpx;
+  margin: 0rpx auto 40rpx auto;
+  background: #fff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+}
+.Purple{
+  border-left: 4px solid #995A75;
+}
+.Green{
+  border-left: 4px solid #7FC9B8;
+}
+.Yellow{
+  border-left: 4px solid #F5D372;
+}
+.BtPurple{
+  background-color: #995A75 !important;
+}
+.BtGreen{
+  background-color: #7FC9B8 !important;
+}
+.BtYellow{
+  background-color: #F5D372 !important;
+}
+.order_left{
+  width: 500rpx;
+   height: calc(100% -20rpx); 
+  padding: 20rpx 10rpx;
+  flex-direction: column;
+}
+.order_left .textBlock{
+  width: 100%;
+  margin-top: 10rpx;
+  display: block;
+  font-size: 32rpx;
+  color: #666;
+}
+.order_right{
+  width: 200rpx;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+/*.strap{
+	height: 1rpx;
+	margin-top: 40rpx;
+	border-bottom: 30rpx solid red;
+	border-image: url(/images/锯齿.jpg) 30 30 round;
+}*/
+/*public*/
+.InfoNull{
+    width: 100%;
+	display: flex;
+    flex-direction: column;
+	align-items: center;
+    margin: 20rpx auto;
+    text-align: center;
+}
+.InfoNull image{
+    width: 200rpx;
+	height: 200rpx;
+    margin: 80rpx auto;
+    
+}
