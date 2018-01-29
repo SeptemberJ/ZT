@@ -1,0 +1,13 @@
+<view  class="submitBox">
+<text class='tit'>上门服务反馈</text>
+<view class='imgList'></view>
+  <image class='imgWrap' wx:for="{{tempFilePaths}}" wx:for-item="ImgItem" wx:for-index="ImgIdx" src="{{ImgItem}}">
+  <image class='imgItem'  src="../../images/delete.png" bindtap='UploadImg'></image>
+  </image>
+<image class='ImgBlock' src="../../images/add.png" bindtap='UploadImg'></image>
+</view>
+
+
+<loading hidden="{{loadingHidden}}">
+  登录中...
+</loading>

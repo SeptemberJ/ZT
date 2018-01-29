@@ -1,8 +1,18 @@
 {
   "pages": [
-    "pages/OrderList/index",
+    "pages/Submit/index",
     "pages/Login/index",
-    "pages/Sign/index"
+   
+    
+    
+    "pages/Sign/index",
+    "pages/OrderList/index"
+   
+    
+    
+    
+    
+    
   ],
   "window": {
     "backgroundTextStyle": "white",

@@ -17,17 +17,12 @@ Page({
   onLoad: function () {
     var that = this
     //调用应用实例的方法获取全局数据
-    // app.getUserInfo(function (userInfo) {
-    //         //更新数据
-    //         // console.log(userInfo);
-    //         that.setData({
-    //             userInfo: userInfo
-
-    //         })
-    //     })
-    this.setData({
-      userInfo: app.globalData.userInfo,
-    });
+    // app.getUserInfo((userInfo) => {
+    //   this.setData({
+    //     userInfo: userInfo,
+    //     nickName: userInfo.nickName,
+    //   })
+    // }) 
     // console.log('---------');
     // console.log(app.globalData.userInfo);
   },
@@ -127,40 +122,62 @@ Page({
       });
       return false;
     }
-    // requestPromisified({
-    //     url:  h.main+"/main/userlistBytype.html",
-    //     data: {
-    //     username:USER,
-    //     password:MD5.hexMD5(PSD),
-    //     oppen_id: app.globalData.oppenid
-    //     },
+    requestPromisified({
+        url:  h.main+"/page/login.do",
+        data: {
+        username:USER,
+        password:PSD,
+        //oppen_id: app.globalData.oppenid
+        },
 
-    //     method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-    //     header: {
-    //     'content-type': 'application/x-www-form-urlencoded' ,
-    //         'Accept': 'application/json',
-    //         'Set-Cookie':'sessionToken='+app.globalData.session
-    //     }, // 设置请求的 header
-    // }).then((res)=> {
-    //     console.log('sign backinfor----');
-    //     console.log(res.data);
-    //     this.setData({
-    //         loadingHidden:true
-    //     })
-    //     console.log(this.data.loadingHidden);
-    //     app.globalData.accountName=USER;
-    //     app.globalData.sessionid=res.data[1];
+        method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        header: {
+        'content-type': 'application/x-www-form-urlencoded' ,
+            'Accept': 'application/json',
+            'Set-Cookie':'sessionToken='+app.globalData.session
+        }, // 设置请求的 header
+    }).then((res)=> {
+        console.log('login backinfor----');
+        console.log(res.data);
+        switch (res.data.result){
+          case 1:
+            app.globalData.userId = res.data.id
+          wx.navigateTo({
+            url: '../OrderList/index'
+          }) 
+          break
+          case 0:
+          this.setData({
+              loadingHidden:true
+          })
+          wx.showToast({
+            image: '/images/attention.png',
+            title: '登录失败！'
+          })
+          break
+          default:
+          this.setData({
+            loadingHidden: true
+          })
+          wx.showToast({
+            image: '/images/attention.png',
+            title: '服务器繁忙！'
+          });
 
 
-    // }).catch((res)=> {
-    //     this.setData({
-    //         loadingHidden:true
-    //     })
-    //     wx.showToast({
-    // title: '服务器繁忙，请稍后重试！'
-    //     });
-    //     console.error("get login failed")
-    // })
+        }
+        
+
+
+    }).catch((res)=> {
+        this.setData({
+            loadingHidden:true
+        })
+        wx.showToast({
+    title: '服务器繁忙，请稍后重试！'
+        });
+        console.error("get login failed")
+    })
 
 
   },

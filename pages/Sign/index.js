@@ -145,7 +145,7 @@ Page( {
         })
         wx.showModal({
           title: '提示',
-          content: '连词输入的面不一致!',
+          content: '两次输入的密码不一致!',
           confirmColor: '#7FC9B8',
           showCancel: false,
           success: function (res) {
@@ -156,41 +156,62 @@ Page( {
         });
         return false;
       }
-      // requestPromisified({
-      //     url:  h.main+"/main/userlistBytype.html",
-      //     data: {
-      //     username:USER,
-      //     password:MD5.hexMD5(PSD),
-      //     role: this.data.role
-      //     oppen_id: app.globalData.oppenid
-      //     },
+      requestPromisified({
+          url:  h.main+"/page/register.do",
+          data: {
+          username:USER,
+          password: PSD,
+          //password:MD5.hexMD5(PSD),
+          role: this.data.role
+          //oppen_id: app.globalData.oppenid
+          },
           
-      //     method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      //     header: {
-      //     'content-type': 'application/x-www-form-urlencoded' ,
-      //         'Accept': 'application/json',
-      //         'Set-Cookie':'sessionToken='+app.globalData.session
-      //     }, // 设置请求的 header
-      // }).then((res)=> {
-      //     console.log('sign backinfor----');
-      //     console.log(res.data);
-      //     this.setData({
-      //         loadingHidden:true
-      //     })
-      //     console.log(this.data.loadingHidden);
-      //     app.globalData.accountName=USER;
-      //     app.globalData.sessionid=res.data[1];
+          method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+          header: {
+          'content-type': 'application/x-www-form-urlencoded' ,
+              'Accept': 'application/json',
+              'Set-Cookie':'sessionToken='+app.globalData.session
+          }, // 设置请求的 header
+      }).then((res)=> {
+          console.log('sign backinfor----');
+          console.log(res.data.result);
+          switch (res.data.result) {
+            case 1:
+              wx.navigateTo({
+                url: '../Login/index'
+              })
+              break
+            case 0:
+              this.setData({
+                loadingHidden: true
+              })
+              wx.showToast({
+                image: '/images/attention.png',
+                title: '该用户名已存在！'
+              })
+              break
+            default:
+              this.setData({
+                loadingHidden: true
+              })
+              wx.showToast({
+                image:'/images/attention.png',
+                title: '服务器繁忙！'
+              });
+
+
+          }
           
       
-      // }).catch((res)=> {
-      //     this.setData({
-      //         loadingHidden:true
-      //     })
-      //     wx.showToast({
-      // title: '服务器繁忙，请稍后重试！'
-      //     });
-      //     console.error("get login failed")
-      // })
+      }).catch((res)=> {
+          this.setData({
+              loadingHidden:true
+          })
+          wx.showToast({
+      title: '服务器繁忙，请稍后重试！'
+          });
+          console.error("get login failed")
+      })
 
           
   },

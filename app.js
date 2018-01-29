@@ -24,7 +24,6 @@ App({
         success: function (a) {
           var code = a.code;
           console.log(code+"*******************")
-        
           wx.getUserInfo({
             success: function (res) {
               var encryptedData = encodeURIComponent(res.encryptedData);
@@ -43,23 +42,13 @@ App({
   },
   onShow: function () {
     console.log('App Show')
-    // console.log('startTime-----')
-    // startTime=new Date().getTime()
-    // console.log(startTime)
-    // console.log(endTime)
-    // console.log(endTime-startTime)
-    // if(startTime-endTime>10000){
-    //   wx.showToast({
-    //                 title: '请重新登录！',
-    //                 duration: 500
-    //       });
-    // }
   },
   onHide: function () {
     console.log('App Hide')
     // endTime=new Date().getTime()
   },
   globalData: {
+    userId:null,
     userInfo: null,
     code: "",
     encryptedData: "",
@@ -81,7 +70,7 @@ function  Login(code,encryptedData,iv){
           console.log(code)
           //请求服务器
           wx.request({
-            url:  h.main+"/page/userInsertWsc.html",
+            url:  h.main+"/page/userInsertWsc.do",
             data: {
              code:code,
              realname:app.globalData.userInfo.nickName,
@@ -98,9 +87,6 @@ function  Login(code,encryptedData,iv){
               // success
               console.log(res.data);
               app.globalData.oppenid=res.data.oppen_id;
-              
-              console.log(res.data.oppen_id);
-              console.log(app.globalData.oppenid);
             },
             fail: function (res) {
               // fail
@@ -108,7 +94,7 @@ function  Login(code,encryptedData,iv){
             },
             complete: function (res) {
               // complete
-                console.log(+res);
+                console.log(res);
             }
           })
   }

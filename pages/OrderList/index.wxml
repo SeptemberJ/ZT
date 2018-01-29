@@ -8,7 +8,7 @@
   <view class='blank'></view>  
 
 <view class='orderList_wrap'>
-  <view class="orderItem {{OrderItem.status==0?'Green':'Yellow'}}" wx:for="{{OrderList}}" wx:for-item="OrderItem" wx:for-index="OrderIdx">
+  <view class="orderItem {{OrderItem.status==0?'Green':'Green'}}" wx:for="{{OrderList}}" wx:for-item="OrderItem" wx:for-index="OrderIdx">
   <view class='order_left'>
     <view class='textBlock'>
      <text class='Bold'>地址：</text>
@@ -25,7 +25,7 @@
   </view>
   <view class='order_right'>
     <button type="default" class='button BtGreen'  wx-if="{{OrderItem.status==0}}"> 接单 </button>
-    <button type="default" class='button BtYellow'  wx-if="{{OrderItem.status==1}}"> 预约 </button>
+    <button type="default" class='button BtGreen'  wx-if="{{OrderItem.status==1}}"> 预约 </button>
   </view>
   </view>
 </view>
