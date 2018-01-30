@@ -1,12 +1,13 @@
 {
   "pages": [
-    "pages/Submit/index",
+  "pages/OrderList/index",
     "pages/Login/index",
+   "pages/Submit/index",
+    
+    
+    
+    "pages/Sign/index"
    
-    
-    
-    "pages/Sign/index",
-    "pages/OrderList/index"
    
     
     

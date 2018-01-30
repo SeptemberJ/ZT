@@ -9,27 +9,56 @@
 
 <view class='orderList_wrap'>
   <view class="orderItem {{OrderItem.status==0?'Green':'Green'}}" wx:for="{{OrderList}}" wx:for-item="OrderItem" wx:for-index="OrderIdx">
-  <view class='order_left'>
+  <view class='order_left' bindtap='Detail' data-id='{{OrderItem.id}}'>
     <view class='textBlock'>
      <text class='Bold'>地址：</text>
-     <text>{{OrderItem.addr}}</text>
+     <text>{{OrderItem.faddress}}</text>
     </view>
     <view class='textBlock'>
      <text class='Bold'>联系人：</text>
-     <text>{{OrderItem.contact}}</text>
+     <text>{{OrderItem.fpeople}}</text>
     </view>
     <view class='textBlock'>
      <text class='Bold'>联系电话：</text>
-     <text>{{OrderItem.tel}}</text>
+     <text>{{OrderItem.ftel}}</text>
     </view>
   </view>
   <view class='order_right'>
-    <button type="default" class='button BtGreen'  wx-if="{{OrderItem.status==0}}"> 接单 </button>
-    <button type="default" class='button BtGreen'  wx-if="{{OrderItem.status==1}}"> 预约 </button>
+    <button type="default"wx-if="{{OrderItem.fbstatus==2}}"  class='button BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='TakeOrder'> 接单 </button>
+    
+    <button type="default" class='button MarginTB_10 BtGreen'  wx-if="{{OrderItem.fbstatus==5}}" data-id='{{OrderItem.id}}' bindtap='MakeCall'> 打电话 </button>
+    <button type="default" class='button MarginTB_10 BtGreen'  wx-if="{{OrderItem.fbstatus==6}}" data-id='{{OrderItem.id}}' bindtap='MakeOrder'> 预约 </button>
+     <button type="default" class='button MarginB_10 BtGreen' data-id='{{OrderItem.id}}' wx-if="{{!OrderItem.ewm && (OrderItem.fbstatus==5 || OrderItem.fbstatus==6)}}" bindtap='ScanCode'> 扫码 </button>
+
+     <button type="default"wx-if="{{OrderItem.fbstatus==7}}"  class='button BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='ToSign'> 签到 </button>
+     <button type="default"wx-if="{{OrderItem.fbstatus==8}}"  class='button BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='ToWrite'> 上传 </button>
+      <button type="default"wx-if="{{OrderItem.fbstatus=='A'}}"  class='button BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='ToOutSign'>签退</button> 
+
+
   </view>
   </view>
 </view>
 
+ <view class='Mask' wx:if="{{ifShowModal}}">
+  <view class='Modal'>
+    <text class='Modal_tit'>详细信息</text>
+    <text class='Modal_text'>地址:{{OrderDetail.faddress}}</text>
+    <text class='Modal_text'>金额：{{OrderDetail.fmoney}}</text>
+    <view class='Modal_text'>
+    <picker mode="date" value="{{modifyDate}}" bindchange="bindDateChange">
+    <view class="picker">
+      要求上门日期: {{modifyDate}}
+    </view>
+  </picker>
+    </view>
+    <text class='Modal_text'>任务:{{OrderDetail.foperate_task}}</text>
+    <text class='Modal_text'>业务员:{{OrderDetail.fsale_person}}</text>
+    <view class='operationBlock'>
+      <view class='operation_item borderR' bindtap='modifyCancel'>取消</view>
+      <view class='operation_item lightGreen'  bindtap='modifySure'>确定</view>
+    </view>
+  </view>
+</view> 
 
 <!-- <loading hidden="{{loadingHidden}}">
   加载中...

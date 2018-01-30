@@ -13,7 +13,15 @@ page {
     background-color: #fff;
     height: 100%;
 }
-
+.apply-add {
+    width:80%;
+    background: #2F3C4D;
+    color: #fff;
+    font-weight: bold;
+}
+.hoverClass{
+    background: #00FFFF
+}
 .blank{
   width: 100%;
   height: 40rpx;
@@ -24,7 +32,6 @@ page {
 }
 .button{
   width: 150rpx;
-  height: 35px;
   color: #fff !important;
   font-size: 32rpx !important;
   padding: 0rpx;
@@ -32,4 +39,74 @@ page {
 }
 .colorPurple{
   background: #995A75;
+}
+
+.MarginTB_20{
+  margin: 20px auto;
+}
+.MarginTB_10{
+  margin: 10px auto;
+}
+.MarginB_10{
+  margin-bottom: 10px;
+}
+
+.Mask{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color:#000;
+  opacity:1;
+  z-index: 9999;
+}
+.Modal{
+  width: 80%;
+  height: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background-color: #fff;
+  transform: translate(-50%,-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 10rpx;
+}
+.Modal_tit{
+  width: 100%;
+  height: 80rpx;
+  font-weight: bold;
+  text-align: center;
+}
+.Modal_text{
+  width: 100%;
+  min-height: 60rpx;
+  font-size: 30rpx;
+  align-items: center;
+}
+.Modal_text input{
+  padding-left: 10rpx;
+}
+.operationBlock{
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20rpx;
+}
+.operation_item{
+  flex: 1;
+  text-align: center;
+  border-top: 1px solid #ddd;
+  padding-top: 8rpx;
+}
+.lightGreen{
+  color: #3CC51F;
+}
+.borderR{
+  border-right: 1px solid #ddd;
 }

@@ -1,10 +1,21 @@
 .submitBox{
   width: 700rpx;
   margin: 10rpx auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 .tit{
+  width: 100%;
   font-size: 32rpx;
   font-weight: bold;
+  margin: 15rpx auto;
+}
+.titWrap{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 .imgList{
   width: 700rpx;
@@ -34,4 +45,18 @@
   height: 120rpx;
   margin-top: 20rpx;
   margin-right: 20rpx;
+}
+textarea{
+  width: calc(700rpx - 40rpx);
+  border: 1rpx solid #eee;
+  min-height: 200rpx;
+  font-size: 32rpx;
+  padding: 20rpx;
+}
+input{
+  width: 100%;
+}
+.Qcode{
+  width: 60rpx;
+  height: 60rpx;
 }

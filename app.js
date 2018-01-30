@@ -48,8 +48,9 @@ App({
     // endTime=new Date().getTime()
   },
   globalData: {
-    userId:null,
+    userId:'157c1d0b65b248b8973ad2c3a7293518',
     userInfo: null,
+    TabCur:0,
     code: "",
     encryptedData: "",
     iv: "",
