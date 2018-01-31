@@ -7,9 +7,8 @@ Page({
     data: {
         loadingHidden:false,
         Tabs: ['待接单', '待预约', '上门服务', '服务完成'],
-        TabCur: app.globalData.TabCur,
+        TabCur: 0,
         OrderList:[],
-        array: ['美国', '中国', '巴西', '日本'],
         index:0,
         OrderDetail:'',
         ifShowModal:false
@@ -19,6 +18,10 @@ Page({
       
     },
     onShow:function(){
+      this.setData({
+        TabCur:app.globalData.TabCur
+      })
+      console.log('app.globalData.TabCur' + app.globalData.TabCur)
       switch (app.globalData.TabCur) {
         case 0:
           this.getData('/page/selectapply.do')
@@ -57,8 +60,11 @@ Page({
       }).then((res) => {
         console.log('detail backInfo---')
         console.log(res.data)
+        let temp = res.data[0]
+        temp.fgodate = res.data[0].fgodate.split('.')[0]
+        //console.log(res.data[0].fgodate.split('.')[0])
         this.setData({
-          OrderDetail: res.data[0],
+          OrderDetail: temp,
           ifShowModal:true
         })
 
@@ -70,6 +76,12 @@ Page({
           image: '/images/attention.png',
           title: '服务器繁忙！'
         });
+      })
+    },
+    //关闭详情
+    DetailClose: function(){
+      this.setData({
+        ifShowModal: false
       })
     },
     // tab点击
@@ -113,7 +125,7 @@ Page({
           wx.showToast({
             title: '接单成功!',
             icon: 'success',
-            duration: 2000
+            duration: 1500
           })
           this.getData('/page/selectapply.do')
         }
@@ -131,8 +143,7 @@ Page({
     //打电话
     MakeCall: function(e){
       wx.makePhoneCall({
-        phoneNumber: '18248841622',
-        // phoneNumber: this.data.OrderList[e.currentTarget.dataset.idx].ftel
+         phoneNumber: this.data.OrderList[e.currentTarget.dataset.idx].ftel,
         success: (res) => {
           console.log('makePhoneCall success--')
           requestPromisified({
@@ -200,7 +211,7 @@ Page({
             wx.showToast({
               title: '预约成功！',
               icon: 'success',
-              duration: 2000
+              duration: 1500
             })
             this.getData('/page/daiyuyue.do')
             break
@@ -266,7 +277,7 @@ Page({
                       wx.showToast({
                         title: '签到成功！',
                         icon: 'success',
-                        duration: 2000
+                        duration: 1500
                       })
                       this.getData('/page/smfw.do')
                       break
@@ -338,16 +349,16 @@ Page({
         success: (res)=> {
           switch (res.tapIndex) {
             case 0:
-              this.OutSign(ID,shi)
+              this.OutSign(ID,'kongpao')
               break
             case 1:
-              this.OutSign(ID,shiyi)
+              this.OutSign(ID,'dengtongzhi')
               break
             case 2:
-              this.OutSign(ID,shier)
+              this.OutSign(ID,'fangong')
               break
             case 3:
-              this.OutSign(ID,shisan)
+              this.OutSign(ID,'wutiaojananzhuang')
               break
             case 4:
               this.OutSign(ID,9)
@@ -380,7 +391,7 @@ Page({
             wx.showToast({
               title: '签退成功！',
               icon: 'success',
-              duration: 2000
+              duration: 1500
             })
             this.getData('/page/smfw.do')
             break
@@ -430,7 +441,7 @@ Page({
                 wx.showToast({
                   title: '扫码成功！',
                   icon: 'success',
-                  duration: 2000
+                  duration: 1500
                 })
                 this.getData('/page/daiyuyue.do')
                 break
@@ -460,6 +471,9 @@ Page({
     },
     //获取对应订单
     getData: function(URL){
+      this.setData({
+        loadingHidden:false
+      })
       requestPromisified({
         url: h.main + URL,
         data: {

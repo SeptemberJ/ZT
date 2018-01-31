@@ -9,7 +9,7 @@ Page({
     loadingHidden: true,
     tempFilePaths:[],
     QCode:'',
-    QCodeOld:'',
+    QCodeOld:null,
     Note:''
   },
 
@@ -27,8 +27,8 @@ Page({
       sourceType: ['album', 'camera'],
       success: (res)=> {
         this.setData({
-          tempFilePaths: res.tempFilePaths
-          // tempFilePaths: temp.concat(res.tempFilePaths)
+          //tempFilePaths: res.tempFilePaths
+          tempFilePaths: temp.concat(res.tempFilePaths)
         })
         console.log(this.data.tempFilePaths)
       }
@@ -68,47 +68,70 @@ Page({
   },
   //提交
   SumitInfo: function(){
-    if (this.data.QCodeOld && (this.data.QCode != this.data.QCodeOld)){
+    if (!this.data.QCodeOld){
+      if (this.data.QCode != this.data.QCodeOld) {
+        wx.showToast({
+          image: '/images/attention.png',
+          title: '二维码不一致！'
+        });
+        return false
+      }
+    }
+    if (this.data.tempFilePaths.length<=0){
       wx.showToast({
         image: '/images/attention.png',
-        title: '二维码不一致！'
+        title: '请添加图片！'
       });
       return false
     }
-    var that = this
-    while (this.data.tempFilePaths.length>0){
-      wx.uploadFile({
-        url: h.main + '/page/upload1.do',//仅为示例，非真实的接口地址
-        filePath: this.data.tempFilePaths.splice(0, 1)[0],
-        name: 'file',
-        formData: {
-          id: this.data.id,
-          QCode: that.data.QCode,
-          Note: that.data.Note
-        },
-        header: {
-          'content-type': 'multipart/form-data',
-        },
-        success: (res) => {
-          console.log('图片上传backInfo-----')
-          console.log(res)
-
-
-        },
-        fail: (res) => {
+    this.UploadImg()
+  },
+  UploadImg: function(){
+    wx.uploadFile({
+      url: h.main + '/page/Insertimg.do',//仅为示例，非真实的接口地址
+      filePath: this.data.tempFilePaths.splice(0, 1)[0],
+      name: 'file',
+      formData: {
+        id: this.data.id,
+        QCode: this.data.QCode,
+        Note: this.data.Note
+      },
+      header: {
+        'content-type': 'multipart/form-data',
+      },
+      success: (res) => {
+        console.log('图片上传backInfo-----')
+        console.log(res)
+        if (res.data == 1) {
+          if (this.data.tempFilePaths.length > 0) {
+            this.UploadImg()
+          } else {
+            wx.showToast({
+              title: '提交成功',
+              icon: 'success',
+              duration: 1500
+            })
+            setTimeout(() => {
+              wx.navigateBack()
+            }, 1500)
+            
+          }
+        } else {
+          wx.showToast({
+            image: '/images/attention.png',
+            title: '图片上传失败！'
+          });
           return false
-          console.log('图片上传失败backInfo-----')
-          console.log(res)
-        },
-        complete: (res) => {
         }
-      })
-    }
-    wx.navigateTo({
-      url: '../OrderList/index'
+      },
+      fail: (res) => {
+        return false
+        console.log('图片上传失败backInfo-----')
+        console.log(res)
+      },
+      complete: (res) => {
+      }
     })
-
-    
   }
 
 })

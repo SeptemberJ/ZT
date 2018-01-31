@@ -51,14 +51,30 @@ page {
   margin-bottom: 10px;
 }
 
+.InfoNull{
+    width: 100%;
+	  display: flex;
+    flex-direction: column;
+	  align-items: center;
+    margin: 20rpx auto;
+    text-align: center;
+    color: #8a8a8a;
+}
+.InfoNull image{
+    width: 200rpx;
+	  height: 200rpx;
+    margin: 80rpx auto;
+    
+}
+
 .Mask{
   width: 100%;
   height: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  background-color:#000;
-  opacity:1;
+  background-color:#868c89;
+  opacity:0.5;
   z-index: 9999;
 }
 .Modal{
@@ -73,7 +89,8 @@ page {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 10rpx;
+  padding: 20rpx;
+  z-index: 999999;
 }
 .Modal_tit{
   width: 100%;
@@ -108,5 +125,5 @@ page {
   color: #3CC51F;
 }
 .borderR{
-  border-right: 1px solid #ddd;
+  border-right: 0px solid #ddd;
 }

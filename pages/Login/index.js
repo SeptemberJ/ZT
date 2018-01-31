@@ -142,29 +142,30 @@ Page({
         switch (res.data.result){
           case 1:
             app.globalData.userId = res.data.id
-          wx.navigateTo({
-            url: '../OrderList/index'
-          }) 
-          break
+            this.setData({
+              loadingHidden: true
+            })
+            wx.navigateTo({
+              url: '../OrderList/index'
+            }) 
+            break
           case 0:
-          this.setData({
-              loadingHidden:true
-          })
-          wx.showToast({
-            image: '/images/attention.png',
-            title: '登录失败！'
-          })
-          break
+            this.setData({
+                loadingHidden:true
+            })
+            wx.showToast({
+              image: '/images/attention.png',
+              title: '登录失败！'
+            })
+            break
           default:
-          this.setData({
-            loadingHidden: true
-          })
-          wx.showToast({
-            image: '/images/attention.png',
-            title: '服务器繁忙！'
-          });
-
-
+            this.setData({
+              loadingHidden: true
+            })
+            wx.showToast({
+              image: '/images/attention.png',
+              title: '服务器繁忙！'
+            });
         }
         
 

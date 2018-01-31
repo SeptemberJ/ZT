@@ -55,6 +55,8 @@ textarea{
 }
 input{
   width: 100%;
+  font-size: 32rpx;
+  padding: 20rpx;
 }
 .Qcode{
   width: 60rpx;
