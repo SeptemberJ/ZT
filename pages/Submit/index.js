@@ -8,6 +8,7 @@ Page({
     userInfo: {},
     loadingHidden: true,
     tempFilePaths:[],
+    copyTempFilePaths: [],
     QCode:'',
     QCodeOld:null,
     Note:''
@@ -28,7 +29,8 @@ Page({
       success: (res)=> {
         this.setData({
           //tempFilePaths: res.tempFilePaths
-          tempFilePaths: temp.concat(res.tempFilePaths)
+          tempFilePaths: temp.concat(res.tempFilePaths),
+          copyTempFilePaths: temp.concat(res.tempFilePaths)
         })
         console.log(this.data.tempFilePaths)
       }
@@ -40,7 +42,8 @@ Page({
     let AfterSource = this.data.tempFilePaths
     AfterSource.splice(IDX,1)
     this.setData({
-      tempFilePaths: AfterSource
+      tempFilePaths: AfterSource,
+      copyTempFilePaths: AfterSource
     })
   },
   //扫码
@@ -87,6 +90,9 @@ Page({
     this.UploadImg()
   },
   UploadImg: function(){
+    this.setData({
+      loadingHidden: false
+    })
     wx.uploadFile({
       url: h.main + '/page/Insertimg.do',//仅为示例，非真实的接口地址
       filePath: this.data.tempFilePaths.splice(0, 1)[0],
@@ -106,6 +112,9 @@ Page({
           if (this.data.tempFilePaths.length > 0) {
             this.UploadImg()
           } else {
+            this.setData({
+              loadingHidden: true
+            })
             wx.showToast({
               title: '提交成功',
               icon: 'success',
@@ -117,6 +126,10 @@ Page({
             
           }
         } else {
+          this.setData({
+            loadingHidden: true,
+            tempFilePaths:this.data.copyTempFilePaths
+          })
           wx.showToast({
             image: '/images/attention.png',
             title: '图片上传失败！'
@@ -125,9 +138,12 @@ Page({
         }
       },
       fail: (res) => {
-        return false
         console.log('图片上传失败backInfo-----')
         console.log(res)
+        this.setData({
+          loadingHidden: true
+        })
+        return false
       },
       complete: (res) => {
       }

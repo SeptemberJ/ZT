@@ -239,6 +239,9 @@ Page({
     },
     //签到
     ToSign: function(e){
+      this.setData({
+        loadingHidden: false
+      })
       requestPromisified({
         url: h.main + '/page/seartime.do',
         data: {
@@ -279,6 +282,9 @@ Page({
                         icon: 'success',
                         duration: 1500
                       })
+                      this.setData({
+                        loadingHidden: true
+                      })
                       this.getData('/page/smfw.do')
                       break
                     case 0:
@@ -286,6 +292,9 @@ Page({
                         image: '/images/attention.png',
                         title: '订单状态修改失败'
                       });
+                      this.setData({
+                        loadingHidden: true
+                      })
                       break
                     default:
                       wx.showToast({
@@ -316,12 +325,18 @@ Page({
               image: '/images/attention.png',
               title: '尚有未签退单子！'
             });
+            this.setData({
+              loadingHidden: true
+            })
             break
           default:
             wx.showToast({
               image: '/images/attention.png',
               title: '服务器繁忙！'
             });
+            this.setData({
+              loadingHidden: true
+            })
         }
       }).catch((res) => {
         this.setData({

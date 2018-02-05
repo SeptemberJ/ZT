@@ -24,7 +24,7 @@
     </view>
   </view>
   <view class='order_right'>
-    <button type="default"wx-if="{{OrderItem.fbstatus==2}}"  class='button BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='TakeOrder'> 接单 </button>
+    <button type="default"wx-if="{{OrderItem.fbstatus==3}}"  class='button BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='TakeOrder'> 接单 </button>
     
     <button type="default" class='button MarginTB_10 BtGreen'  wx-if="{{OrderItem.fbstatus==5}}" data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}' bindtap='MakeCall'> 打电话 </button>
     <button type="default" class='button MarginTB_10 BtGreen'  wx-if="{{OrderItem.fbstatus==6}}" data-id='{{OrderItem.id}}' bindtap='MakeOrder'> 预约 </button>
