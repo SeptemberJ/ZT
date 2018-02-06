@@ -61,7 +61,12 @@ Page({
         console.log('detail backInfo---')
         console.log(res.data)
         let temp = res.data[0]
-        temp.fgodate = res.data[0].fgodate.split('.')[0]
+        if (res.data[0].fgodate){
+          temp.fgodate = res.data[0].fgodate.split('.')[0]
+        }else{
+          temp.fgodate = '无要求'
+        }
+        
         //console.log(res.data[0].fgodate.split('.')[0])
         this.setData({
           OrderDetail: temp,
@@ -69,6 +74,7 @@ Page({
         })
 
       }).catch((res) => {
+        console.log(res)
         this.setData({
           loadingHidden: true
         })
@@ -360,22 +366,25 @@ Page({
     ToOutSign: function (e) {
       let ID = e.currentTarget.dataset.id
       wx.showActionSheet({
-        itemList: ['空跑', '等通知', '返工','无条件安装','完工'],
+        itemList: ['重排','空跑', '等通知', '返工','无条件安装','完工'],
         success: (res)=> {
           switch (res.tapIndex) {
             case 0:
-              this.OutSign(ID,'kongpao')
+              this.OutSign(ID, 'chongpai')
               break
             case 1:
-              this.OutSign(ID,'dengtongzhi')
+              this.OutSign(ID,'kongpao')
               break
             case 2:
-              this.OutSign(ID,'fangong')
+              this.OutSign(ID,'dengtongzhi')
               break
             case 3:
-              this.OutSign(ID,'wutiaojananzhuang')
+              this.OutSign(ID,'fangong')
               break
             case 4:
+              this.OutSign(ID,'wutiaojananzhuang')
+              break
+            case 5:
               this.OutSign(ID,9)
               break
           }
