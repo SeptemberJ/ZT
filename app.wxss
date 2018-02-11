@@ -124,6 +124,6 @@ page {
 .lightGreen{
   color: #3CC51F;
 }
-.borderR{
-  border-right: 0px solid #ddd;
+.borderL{
+  border-left: 1px solid #ddd;
 }

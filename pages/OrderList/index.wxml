@@ -22,6 +22,10 @@
      <text class='Bold'>联系电话：</text>
      <text>{{OrderItem.ftel}}</text>
     </view>
+    <view class='textBlock'>
+     <text class='Bold'>特别提醒：</text>
+     <text>{{OrderItem.special_note}}</text>
+    </view>
   </view>
   <view class='order_right'>
     <button type="default"wx-if="{{OrderItem.fbstatus==3}}"  class='button BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='TakeOrder'> 接单 </button>
@@ -30,7 +34,9 @@
     <button type="default" class='button MarginTB_10 BtGreen'  wx-if="{{OrderItem.fbstatus==6}}" data-id='{{OrderItem.id}}' bindtap='MakeOrder'> 预约 </button>
      <button type="default" class='button MarginB_10 BtGreen' data-id='{{OrderItem.id}}' wx-if="{{!OrderItem.ewm && (OrderItem.fbstatus==5 || OrderItem.fbstatus==6)}}" bindtap='ScanCode'> 扫码 </button>
 
-     <button type="default"wx-if="{{OrderItem.fbstatus==7}}"  class='button BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='ToSign'> 签到 </button>
+     <button type="default"wx-if="{{OrderItem.fbstatus==7}}"  class='button MarginTB_10 BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='ToSign'> 签到 </button>
+     <button type="default"wx-if="{{OrderItem.fbstatus==7}}"  class='button MarginB_10 BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='ToReset'> 重排 </button>
+
      <button type="default" wx-if="{{OrderItem.fbstatus==8}}"  class='button BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='ToWrite'> 上传 </button>
       <button type="default"wx-if="{{OrderItem.fbstatus=='A'}}"  class='button BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='ToOutSign'>签退</button>
 
@@ -46,19 +52,20 @@
 <view class='Modal' wx:if="{{ifShowModal}}">
     <text class='Modal_tit'>详细信息</text>
     <text class='Modal_text'>地址:{{OrderDetail.faddress}}</text>
-    <text class='Modal_text'>金额：{{OrderDetail.fmoney}}</text>
-    <view class='Modal_text'>要求上门日期: {{OrderDetail.fgodate}}
-    <!-- <picker mode="date" value="{{modifyDate}}" bindchange="bindDateChange">
-    <view class="picker">
-      要求上门日期: {{OrderDetail.fgodate}}
-    </view>
-  </picker> -->
+    <!-- <text class='Modal_text'>金额：{{OrderDetail.fmoney}}</text> -->
+    <view class='Modal_text'>
+     <picker wx:if="{{OrderDetail.fbstatus == '3' || OrderDetail.fbstatus == '5' || OrderDetail.fbstatus == '6' || OrderDetail.fbstatus == '7'}}"  mode="date" value="{{modifyDate}}" bindchange="bindDateChange">
+      <view class="picker">
+        要求上门日期: {{modifyDate}}
+      </view>
+    </picker>
+     <text wx:else>要求上门日期: {{OrderDetail.fgodate}} </text>
     </view>
     <text class='Modal_text'>任务:{{OrderDetail.fcontent}}</text>
     <text class='Modal_text'>业务员:{{OrderDetail.fshifu}}</text>
     <view class='operationBlock'>
-      <view class='operation_item borderR lightGreen' bindtap='DetailClose'>关闭</view>
-      <!-- <view class='operation_item lightGreen'  bindtap='DetailSure'>确定</view> -->
+      <view class='operation_item lightGreen' bindtap='DetailClose'>关闭</view>
+       <view wx:if="{{OrderDetail.fbstatus == '3' || OrderDetail.fbstatus == '5' || OrderDetail.fbstatus == '6' || OrderDetail.fbstatus == '7'}}" class='operation_item borderL lightGreen'  bindtap='ChangeModifyDate'>保存修改</view> 
     </view>
   </view> 
 

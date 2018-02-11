@@ -10,7 +10,7 @@ Page({
     tempFilePaths:[],
     copyTempFilePaths: [],
     QCode:'',
-    QCodeOld:null,
+    QCodeOld:'',
     Note:''
   },
 
@@ -19,6 +19,7 @@ Page({
       id: Options.id,
       QCodeOld: Options.QCode
     })
+    
   },
 
   //选择图片
@@ -71,7 +72,9 @@ Page({
   },
   //提交
   SumitInfo: function(){
-    if (!this.data.QCodeOld){
+    console.log('code-------')
+    console.log(this.data.QCodeOld)
+    if (this.data.QCodeOld != 'null'){
       if (this.data.QCode != this.data.QCodeOld) {
         wx.showToast({
           image: '/images/attention.png',
@@ -108,6 +111,7 @@ Page({
       success: (res) => {
         console.log('图片上传backInfo-----')
         console.log(res)
+        console.log(this.data.Note)
         if (res.data == 1) {
           if (this.data.tempFilePaths.length > 0) {
             this.UploadImg()

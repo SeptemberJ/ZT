@@ -11,6 +11,7 @@ Page({
         OrderList:[],
         index:0,
         OrderDetail:'',
+        modifyDate:'',
         ifShowModal:false
         
     },
@@ -39,12 +40,12 @@ Page({
     },
     
     //picker
-    bindPickerChange: function (e) {
-      console.log('picker发送选择改变，携带值为', e.detail.value)
-      this.setData({
-        index: e.detail.value
-      })
-    },
+    // bindPickerChange: function (e) {
+    //   console.log('picker发送选择改变，携带值为', e.detail.value)
+    //   this.setData({
+    //     index: e.detail.value
+    //   })
+    // },
     //查看详情
     Detail: function(e){
       requestPromisified({
@@ -70,6 +71,7 @@ Page({
         //console.log(res.data[0].fgodate.split('.')[0])
         this.setData({
           OrderDetail: temp,
+          modifyDate: temp.fgodate,
           ifShowModal:true
         })
 
@@ -89,6 +91,70 @@ Page({
       this.setData({
         ifShowModal: false
       })
+    },
+    bindDateChange: function(e){
+      this.setData({
+        modifyDate: e.detail.value
+      })
+    },
+    //修改上门日期
+    ChangeModifyDate: function(){
+      if (this.data.modifyDate == '无要求'){
+        this.DetailClose()
+      }else{
+      requestPromisified({
+        url: h.main + '/page/UpdateDate.do',
+        data: {
+          id: this.data.OrderDetail.id,
+          fgodate: this.data.modifyDate
+        },
+        method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json'
+        }, // 设置请求的 header
+      }).then((res) => {
+        console.log('yuyue backInfo---')
+        console.log(res.data)
+        if (res.data.result == 1) {
+          wx.showToast({
+            title: '修改成功!',
+            icon: 'success',
+            duration: 1500
+          })
+          this.DetailClose()
+          switch (app.globalData.TabCur) {
+            case 0:
+              this.getData('/page/selectapply.do')
+              break
+            case 1:
+              this.getData('/page/daiyuyue.do')
+              break
+            case 2:
+              this.getData('/page/smfw.do')
+              break
+            case 3:
+              this.getData('/page/fwwc.do')
+              break
+          }
+        }else{
+          wx.showToast({
+            image: '/images/attention.png',
+            title: '修改失败！',
+            duration: 1000
+          })
+        }
+
+      }).catch((res) => {
+        this.setData({
+          loadingHidden: true
+        })
+        wx.showToast({
+          image: '/images/attention.png',
+          title: '服务器繁忙！'
+        });
+      })
+    }
     },
     // tab点击
     ChangeTab: function(e) {
@@ -353,6 +419,13 @@ Page({
           title: '服务器繁忙！'
         });
       })
+    },
+
+    // 重排
+    ToReset: function(e){
+      let ID = e.currentTarget.dataset.id
+      this.OutSign(ID, 'chongpai')
+      this.getData('/page/smfw.do')
     },
 
     //服务反馈填写
