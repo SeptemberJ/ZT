@@ -439,7 +439,7 @@ Page({
     ToOutSign: function (e) {
       let ID = e.currentTarget.dataset.id
       wx.showActionSheet({
-        itemList: ['重排','空跑', '等通知', '返工','无条件安装','完工'],
+        itemList: ['空跑', '等通知', '返工','完工'],
         success: (res)=> {
           switch (res.tapIndex) {
             case 0:
