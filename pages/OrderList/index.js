@@ -309,8 +309,21 @@ Page({
         });
       })
     },
+    Sign: function(e){
+      wx.showModal({
+        title: '提示',
+        content: '确定签到?',
+        success: (res)=> {
+          if (res.confirm) {
+             this.ToSign(e.currentTarget.dataset.id)
+          } else if (res.cancel) {
+            return false
+          }
+        }
+      })
+    },
     //签到
-    ToSign: function(e){
+    ToSign: function(ID){
       this.setData({
         loadingHidden: false
       })
@@ -335,7 +348,7 @@ Page({
                 requestPromisified({
                   url: h.main + '/page/shangmen.do',
                   data: {
-                    id: e.currentTarget.dataset.id,
+                    id: ID,//e.currentTarget.dataset.id,
                     lat: res.latitude,
                     lng: res.longitude
                   },
@@ -423,9 +436,19 @@ Page({
 
     // 重排
     ToReset: function(e){
-      let ID = e.currentTarget.dataset.id
-      this.OutSign(ID, 'chongpai')
-      this.getData('/page/smfw.do')
+      wx.showModal({
+        title: '提示',
+        content: '确定重排?',
+        success: (res)=> {
+          if (res.confirm) {
+            let ID = e.currentTarget.dataset.id
+            this.OutSign(ID, 'chongpai')
+            this.getData('/page/smfw.do')
+          } else if (res.cancel) {
+            return false
+          }
+        }
+      })
     },
 
     //服务反馈填写
@@ -434,7 +457,33 @@ Page({
         url: '../Submit/index?id=' + e.currentTarget.dataset.id + '&QCode=' + this.data.OrderList[e.currentTarget.dataset.idx].ewm
       })
     },
-
+    ModalOutSign: function(Txt,Idx,Id){
+      //console.log(Txt + '---' + Idx + '---' + Id)
+      wx.showModal({
+        title: '提示',
+        content: '确定'+Txt+'?',
+        success: (res)=> {
+          if (res.confirm) {
+            switch (Idx) {
+              case 0:
+                this.OutSign(Id, 'kongpao')
+                break
+              case 1:
+                this.OutSign(Id, 'dengtongzhi')
+                break
+              case 2:
+                this.OutSign(Id, 'fangong')
+                break
+              case 3:
+                this.OutSign(Id, 9)
+                break
+            }
+          } else if (res.cancel) {
+            return false
+          }
+        }
+      })
+    },
     //签退
     ToOutSign: function (e) {
       let ID = e.currentTarget.dataset.id
@@ -443,22 +492,20 @@ Page({
         success: (res)=> {
           switch (res.tapIndex) {
             case 0:
-              this.OutSign(ID, 'chongpai')
+              this.ModalOutSign('空跑', 0,ID)
+              //this.OutSign(ID, 'kongpao')
               break
             case 1:
-              this.OutSign(ID,'kongpao')
+              this.ModalOutSign('等通知', 1, ID)
+              //this.OutSign(ID, 'dengtongzhi')
               break
             case 2:
-              this.OutSign(ID,'dengtongzhi')
+              this.ModalOutSign('返工', 2, ID)
+              //this.OutSign(ID, 'fangong')
               break
             case 3:
-              this.OutSign(ID,'fangong')
-              break
-            case 4:
-              this.OutSign(ID,'wutiaojananzhuang')
-              break
-            case 5:
-              this.OutSign(ID,9)
+              this.ModalOutSign('完工', 3, ID)
+              //this.OutSign(ID, 9)
               break
           }
         },

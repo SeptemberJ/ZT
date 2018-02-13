@@ -34,7 +34,7 @@
     <button type="default" class='button MarginTB_10 BtGreen'  wx-if="{{OrderItem.fbstatus==6}}" data-id='{{OrderItem.id}}' bindtap='MakeOrder'> 预约 </button>
      <button type="default" class='button MarginB_10 BtGreen' data-id='{{OrderItem.id}}' wx-if="{{!OrderItem.ewm && (OrderItem.fbstatus==5 || OrderItem.fbstatus==6)}}" bindtap='ScanCode'> 扫码 </button>
 
-     <button type="default"wx-if="{{OrderItem.fbstatus==7}}"  class='button MarginTB_10 BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='ToSign'> 签到 </button>
+     <button type="default"wx-if="{{OrderItem.fbstatus==7}}"  class='button MarginTB_10 BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='Sign'> 签到 </button>
      <button type="default"wx-if="{{OrderItem.fbstatus==7}}"  class='button MarginB_10 BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='ToReset'> 重排 </button>
 
      <button type="default" wx-if="{{OrderItem.fbstatus==8}}"  class='button BtGreen' data-id='{{OrderItem.id}}' data-idx='{{OrderIdx}}'  bindtap='ToWrite'> 上传 </button>
