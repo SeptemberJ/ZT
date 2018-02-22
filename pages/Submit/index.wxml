@@ -16,7 +16,7 @@
     <!--服务反馈  -->
     <text class='tit'>服务反馈</text>
     <textarea bindinput='ChangeNote' maxlength="-1" placeholder="请输入服务反馈" value='{{Note}}' />
-    <button bindtap="SumitInfo"  class="apply-add MarginTB_20" hover-class="hoverClass">提交</button>
+    <button bindtap="SumitInfo"  class="apply-add MarginTB_20" hover-class="hoverClass" disabled="{{Canwork}}">提交</button>
 </view>
 
 

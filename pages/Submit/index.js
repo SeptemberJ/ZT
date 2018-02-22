@@ -11,7 +11,8 @@ Page({
     copyTempFilePaths: [],
     QCode:'',
     QCodeOld:'',
-    Note:''
+    Note:'',
+    Canwork:false
   },
 
   onLoad: function (Options) {
@@ -94,7 +95,8 @@ Page({
   },
   UploadImg: function(){
     this.setData({
-      loadingHidden: false
+      loadingHidden: false,
+      Canwork:true
     })
     wx.uploadFile({
       url: h.main + '/page/Insertimg.do',//仅为示例，非真实的接口地址
@@ -117,7 +119,8 @@ Page({
             this.UploadImg()
           } else {
             this.setData({
-              loadingHidden: true
+              loadingHidden: true,
+              //Canwork: true
             })
             wx.showToast({
               title: '提交成功',
@@ -132,6 +135,7 @@ Page({
         } else {
           this.setData({
             loadingHidden: true,
+            Canwork: false,
             tempFilePaths:this.data.copyTempFilePaths
           })
           wx.showToast({
@@ -145,7 +149,8 @@ Page({
         console.log('图片上传失败backInfo-----')
         console.log(res)
         this.setData({
-          loadingHidden: true
+          loadingHidden: true,
+          Canwork: false
         })
         return false
       },
